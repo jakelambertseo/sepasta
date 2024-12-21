@@ -1,0 +1,1064 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streameast Pasta</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.8;
+            font-size: 1.2em;
+            margin: 20px;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        h1 {
+            font-family: 'Roboto', sans-serif;
+            color: #e10600;
+            font-size: 3em;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 img {
+            width: 50px;
+            height: 50px;
+        }
+        #search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #search-bar {
+            padding: 15px;
+            width: 80%;
+            max-width: 500px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #1f1f1f;
+            color: #e0e0e0;
+            font-size: 1.1em;
+        }
+        #search-bar::placeholder {
+            color: #888;
+        }
+        .message {
+            background-color: #0e0e10;
+            color: #efeff1;
+            padding: 10px;
+            margin: 5px auto;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            font-size: 1em;
+            max-width: 600px;
+            display: none;
+            font-family: 'Roboto', sans-serif;
+            border: 1px solid #262626;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .message:hover {
+            background-color: #1c1c1f;
+        }
+        .tooltip {
+            visibility: hidden;
+            background-color: #e10600;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            font-size: 1em;
+            white-space: nowrap;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e10600;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        .pagination button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+    </style>
+    <script>
+        const messagesPerPage = 25;
+        let currentPage = 1;
+
+        function showPage(page) {
+            const messages = document.querySelectorAll('.message');
+            const totalPages = Math.ceil(messages.length / messagesPerPage);
+
+            messages.forEach((message, index) => {
+                if (index >= (page - 1) * messagesPerPage && index < page * messagesPerPage) {
+                    message.style.display = 'block';
+                } else {
+                    message.style.display = 'none';
+                }
+            });
+
+            document.getElementById('prev-button').disabled = page === 1;
+            document.getElementById('next-button').disabled = page === totalPages;
+        }
+
+        function changePage(delta) {
+            currentPage += delta;
+            showPage(currentPage);
+        }
+
+        function copyToClipboard(event, element, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                let tooltip = document.createElement("div");
+                tooltip.className = "tooltip";
+                tooltip.innerText = "Copied!";
+                document.body.appendChild(tooltip);
+
+                tooltip.style.position = "absolute";
+                tooltip.style.top = `${event.clientY}px`;
+                tooltip.style.left = `${event.clientX}px`;
+                tooltip.style.visibility = "visible";
+
+                setTimeout(() => {
+                    tooltip.remove();
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy text: ' + err);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => showPage(currentPage));
+    </script>
+</head>
+<body>
+    <h1>
+        <img src="https://cdn.betterttv.net/emote/656ab71b807721a57bffd7eb/1x" alt="Logo">
+        Streameast Pasta 🍝
+    </h1>
+    <div id="search-container">
+        <input id="search-bar" type="text" placeholder="Search for a message...">
+    </div>
+    <p style="display: flex; align-items: center; justify-content: center; gap: 10px; text-align: center;">
+        <img src="https://cdn.betterttv.net/emote/62c975dfd991a3e26c122786/1x" alt="Decoration" style="width: 24px; height: 24px;">
+        Click on a message to copy it to your clipboard.
+    </p>
+
+    <div class="message" onclick="copyToClipboard(event, this, `Twitch chat is like a fucking parrot. Say something and they copy and paste it a million times. STOP IT! Twitch chat is like a fucking parrot. Say one thing about Taylor Swift or letting Russ cook and everyone copy and pastes. STOP IT RIGHT NOW!!!!!!!!!!!!! Twitch chat is like a fucking parrot ... say one thing about fields and the chillest restaurants and everyone copy and pastes. STOP IT!!!!!`)">
+        Twitch chat is like a fucking parrot. Say something and they copy and paste it a million times. STOP IT! Twitch chat is like a fucking parrot. Say one thing about Taylor Swift or letting Russ cook and everyone copy and pastes. STOP IT RIGHT NOW!!!!!!!!!!!!! Twitch chat is like a fucking parrot ... say one thing about fields and the chillest restaurants and everyone copy and pastes. STOP IT!!!!!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `buddy im 6'5" 150 lbs id beat the PISS out of anyone here LMAO`)">
+        buddy im 6'5" 150 lbs id beat the PISS out of anyone here LMAO
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Guys can you please not spam the chat. My mom bought me this new laptop and it gets really hot when the chat is being spamed. Now my leg is starting to hurt because it is getting so hot. Please, if you don't want me to get burned, then dont spam the chat Guys can you please not use the "fucking parrot" pasta in chat. My mom bought me this new laptop and it gets really hot when the chat is being spamed. Now my leg is starting to hurt because it is getting so hot. Please, if you don't want me to get burned, then dont spam the chat`)">
+        Guys can you please not spam the chat. My mom bought me this new laptop and it gets really hot when the chat is being spamed. Now my leg is starting to hurt because it is getting so hot. Please, if you don't want me to get burned, then dont spam the chat Guys can you please not use the "fucking parrot" pasta in chat. My mom bought me this new laptop and it gets really hot when the chat is being spamed. Now my leg is starting to hurt because it is getting so hot. Please, if you don't want me to get burned, then dont spam the chat
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `This chat will seriously just copy paste anything... its a dumb joke... grow up...`)">
+        This chat will seriously just copy paste anything... its a dumb joke... grow up...
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I’ll never understand how college and NFL football teams allow kickers that just.... miss... kicks. I feel like there has to be pools of kickers in the USA that won’t miss simple kicks. Or snappers that won’t mess the snaps idk man it seems so SILLY. Would love opinions on this.`)">
+        I’ll never understand how college and NFL football teams allow kickers that just.... miss... kicks. I feel like there has to be pools of kickers in the USA that won’t miss simple kicks. Or snappers that won’t mess the snaps idk man it seems so SILLY. Would love opinions on this.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Is this chat filled with parrots? All you guys do is copy what the person above you wrote. Please have some originality and contribute to a smarter chat. Is this chat filled with parrots? All you guys do is copy what the person above you wrote. Is this chat filled with parrots? All you guys do is copy what the person above you wrote. Please have some originality and contribute to a smarter chat. like its not your first time be nice to everyone except yourself`)">
+        Is this chat filled with parrots? All you guys do is copy what the person above you wrote. Please have some originality and contribute to a smarter chat. Is this chat filled with parrots? All you guys do is copy what the person above you wrote. Is this chat filled with parrots? All you guys do is copy what the person above you wrote. Please have some originality and contribute to a smarter chat. like its not your first time be nice to everyone except yourself
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `CURSE OF THE SHIDDER 𓀀 𓀁 𓀂 𓀃 𓀄 𓀅 𓀆 𓀇 𓀈 𓀉 𓀊 𓀋 𓀌 𓀍 𓀎 𓀏 𓀐 𓀑 𓀒 𓀓 𓀔 𓀕 𓀖 𓀗 𓀘 𓀙 𓀚 𓀛 𓀜 𓀝 𓀞 𓀟 𓀠 𓀡 𓀢 𓀣 𓀤 𓀥 𓀦 𓀧 𓀨 𓀩 𓀪 𓀫 𓀬 𓀭 𓀮 𓀯 𓀰 𓀱 𓀲 𓀳 𓀴 𓀵 𓀶 𓀷 𓀸 𓀹 𓀺 𓀻 𓀼 𓀽 𓀾 𓀿 𓁀 𓁁 𓁂 𓁃 𓁄 𓁅 𓁆 𓁇 𓁈 𓁉 𓁊 𓁋 𓁌 𓁍 𓁎 𓁏 𓁐 𓁑 𓀄 𓀅 𓀆`)">
+        CURSE OF THE SHIDDER 𓀀 𓀁 𓀂 𓀃 𓀄 𓀅 𓀆 𓀇 𓀈 𓀉 𓀊 𓀋 𓀌 𓀍 𓀎 𓀏 𓀐 𓀑 𓀒 𓀓 𓀔 𓀕 𓀖 𓀗 𓀘 𓀙 𓀚 𓀛 𓀜 𓀝 𓀞 𓀟 𓀠 𓀡 𓀢 𓀣 𓀤 𓀥 𓀦 𓀧 𓀨 𓀩 𓀪 𓀫 𓀬 𓀭 𓀮 𓀯 𓀰 𓀱 𓀲 𓀳 𓀴 𓀵 𓀶 𓀷 𓀸 𓀹 𓀺 𓀻 𓀼 𓀽 𓀾 𓀿 𓁀 𓁁 𓁂 𓁃 𓁄 𓁅 𓁆 𓁇 𓁈 𓁉 𓁊 𓁋 𓁌 𓁍 𓁎 𓁏 𓁐 𓁑 𓀄 𓀅 𓀆
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LIVE SPORTS 🏈 ESPN+ ORIGINALS ☑️ 30 FOR 30 LIBRARY 📚 EXCLUSIVE ARTICLES AND TOOLS 🛠️ TOP LEAGUES AND TOURNAMENTS 🏆 BEST STORIES IN SPORTS 📖`)">
+        LIVE SPORTS 🏈 ESPN+ ORIGINALS ☑️ 30 FOR 30 LIBRARY 📚 EXCLUSIVE ARTICLES AND TOOLS 🛠️ TOP LEAGUES AND TOURNAMENTS 🏆 BEST STORIES IN SPORTS 📖
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah`)">
+        p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah p! s! w! h! z! HawkTuah p! w! s! z! HawkTuah
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇`)">
+        RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇 RIGHT HERE 👇 RIGHT NOW 👇
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `🔴 LIVE SPORTS 🏈 ESPN+ ORIGINALS ⭐ THE EXCLUSIVE HOME 🏠 OF THE COMPLETE 3️⃣0️⃣ FOR 3️⃣0️⃣ LIBRARY 📚 EXCLUSIVE ARTICLES 📜 AND TOOLS 🛠️ TOP ⬆️ LEAGUES AND TOURNAMENTS 🏆 BEST STORIES 📖 IN SPORTS 🏅 ON ESPN+`)">
+        🔴 LIVE SPORTS 🏈 ESPN+ ORIGINALS ⭐ THE EXCLUSIVE HOME 🏠 OF THE COMPLETE 3️⃣0️⃣ FOR 3️⃣0️⃣ LIBRARY 📚 EXCLUSIVE ARTICLES 📜 AND TOOLS 🛠️ TOP ⬆️ LEAGUES AND TOURNAMENTS 🏆 BEST STORIES 📖 IN SPORTS 🏅 ON ESPN+
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM`)">
+        SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM SONG NAME? sarahu1EDM
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot`)">
+        l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot l! c! PartyParrot r! PartyParrot l! PartyParrot r! c! PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Tag @StreamPilot in case of problems. SPECIFY THE NAME OF THE GAME. Troubleshooting tips -> imgur.com/a/COjePSw`)">
+        Tag @StreamPilot in case of problems. SPECIFY THE NAME OF THE GAME. Troubleshooting tips -> imgur.com/a/COjePSw
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The rig is totally scripted in this game the refs are paid.`)">
+        The rig is totally scripted in this game the refs are paid.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `good snap SeemsGood good hold SeemsGood sneaks it in FBtouchdown`)">
+        good snap SeemsGood good hold SeemsGood sneaks it in FBtouchdown
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `(ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot`)">
+        (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot (ditto) PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Good snap, good hold, and Gano, one of the best in the business, sneaks it in. 7-3 game with drama around the quarterback for the Seahawks and the health of Geno Smith`)">
+        Good snap, good hold, and Gano, one of the best in the business, sneaks it in. 7-3 game with drama around the quarterback for the Seahawks and the health of Geno Smith
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `It's a whole new ballgame with AI. Smarter stats, faster analysis, and sweeter science. Powered by Google Cloud. Official AI Partner of Major League Baseball.`)">
+        It's a whole new ballgame with AI. Smarter stats, faster analysis, and sweeter science. Powered by Google Cloud. Official AI Partner of Major League Baseball.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `E - L - G - S - E - L EAGLES!`)">
+        E - L - G - S - E - L EAGLES!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⠕⠕⠕⠕⢕⢕ ⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⠕⠁⣁⣠⣤⣤⣤⣶⣦⡄⢑ ⢕⢕⢕⠅⢁⣴⣤⠀⣀⠁⠑⠑⠁⢁⣀⣀⣀⣀⣘⢻⣽⣽⣽⣽⣽⡟⢁⢔ ⢕⢕⠕⠀⣽⡁⠄⠀⣹⣽⣽⣽⡿⢋⣥⠤⠙⣽⣽⣽⣽⣽⡿⠿⡟⠀⢔⢕ ⢕⠕⠁⣴⣦⣤⣴⣾⣽⣽⣽⣽⣇⠻⣇⠐⠀⣼⣽⣽⣽⣽⣽⣄⠀⠐⢕⢕ ⠅⢀⣾⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣷⣶⣶⣽⣽⣽⣽⣽⣽⣽⣽⣷⡄⠐⢕ ⠀⢸⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⡄⠐ ⢄⠈⢿⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⡆ ⢕⢔⠀⠈⠛⠿⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽ ⢕⢕⢄⠈⠳⣶⣶⣶⣤⣤⣤⣤⣭⡍⢭⡍⢨⣯⡛⢿⣽⣽⣽⣽⣽⣽⣽⣽ ⢕⢕⢕⢕⠀⠈⠛⠿⢿⣽⣽⣽⣽⣽⣦⣤⣽⣽⣽⣦⣈⠛⢿⢿⣽⣽⣽⣽ ⢕⢕⢕⠁⢠⣾⣶⣾⣭⣖⣛⣽⠿⣽⣽⣽⣽⣽⣽⣽⣽⣷⡆⢸⣽⣽⣽⡟ ⢕⢕⠅⢀⣾⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⡿⠟⠈⢿⣽⣽⡇ ⢕⠕⠀⠼⠟⢉⣉⡙⠻⠿⢿⣽⣽⣽⣽⣽⡿⢿⣛⣭⡴⠶⠶⠂⠀⠿⠿`)">
+        ⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⠕⠕⠕⠕⢕⢕ ⢕⢕⢕⢕⢕⠕⠕⢕⢕⢕⢕⢕⢕⢕⢕⢕⢕⠕⠁⣁⣠⣤⣤⣤⣶⣦⡄⢑ ⢕⢕⢕⠅⢁⣴⣤⠀⣀⠁⠑⠑⠁⢁⣀⣀⣀⣀⣘⢻⣽⣽⣽⣽⣽⡟⢁⢔ ⢕⢕⠕⠀⣽⡁⠄⠀⣹⣽⣽⣽⡿⢋⣥⠤⠙⣽⣽⣽⣽⣽⡿⠿⡟⠀⢔⢕ ⢕⠕⠁⣴⣦⣤⣴⣾⣽⣽⣽⣽⣇⠻⣇⠐⠀⣼⣽⣽⣽⣽⣽⣄⠀⠐⢕⢕ ⠅⢀⣾⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣷⣶⣶⣽⣽⣽⣽⣽⣽⣽⣽⣷⡄⠐⢕ ⠀⢸⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⡄⠐ ⢄⠈⢿⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⡆ ⢕⢔⠀⠈⠛⠿⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽ ⢕⢕⢄⠈⠳⣶⣶⣶⣤⣤⣤⣤⣭⡍⢭⡍⢨⣯⡛⢿⣽⣽⣽⣽⣽⣽⣽⣽ ⢕⢕⢕⢕⠀⠈⠛⠿⢿⣽⣽⣽⣽⣽⣦⣤⣽⣽⣽⣦⣈⠛⢿⢿⣽⣽⣽⣽ ⢕⢕⢕⠁⢠⣾⣶⣾⣭⣖⣛⣽⠿⣽⣽⣽⣽⣽⣽⣽⣽⣷⡆⢸⣽⣽⣽⡟ ⢕⢕⠅⢀⣾⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⣽⡿⠟⠈⢿⣽⣽⡇ ⢕⠕⠀⠼⠟⢉⣉⡙⠻⠿⢿⣽⣽⣽⣽⣽⡿⢿⣛⣭⡴⠶⠶⠂⠀⠿⠿
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Shawnyquest owes me a single point as I AM the anti lilymilkers trust fund president)`)">
+        Shawnyquest owes me a single point as I AM the anti lilymilkers trust fund president)
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I've lost all respect sorry this is absolutely rigged for money... Or ratings in not sure which. I won't be silent . Just saw it live sry.`)">
+        I've lost all respect sorry this is absolutely rigged for money... Or ratings in not sure which. I won't be silent . Just saw it live sry.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `HUG YOUR HOMIE ⚠ SHOW SUPPORT FOR PROFESSIONAL BOXING ⚠`)">
+        HUG YOUR HOMIE ⚠ SHOW SUPPORT FOR PROFESSIONAL BOXING ⚠
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `You do realize new quarterback, 2 of our best defensive players are hurt, the best receiver in college is sitting out. I don't think any of the OSU fans were crying they weren't in. They honestly did not play well enough this year to be ranked where they are at times on the CFP rankings.`)">
+        You do realize new quarterback, 2 of our best defensive players are hurt, the best receiver in college is sitting out. I don't think any of the OSU fans were crying they weren't in. They honestly did not play well enough this year to be ranked where they are at times on the CFP rankings.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `500 word essay due tomorrow and i havent even started yet...`)">
+        500 word essay due tomorrow and i havent even started yet...
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I just smashed my TV in front of 30 guests at my party because of the game. My wife just took our crying kids and said they’re all spending the week at a hotel. This team has ruined my life and my party. I can’t handle this anymore. Goodbye Lions. I am no longer a fan.`)">
+        I just smashed my TV in front of 30 guests at my party because of the game. My wife just took our crying kids and said they’re all spending the week at a hotel. This team has ruined my life and my party. I can’t handle this anymore. Goodbye Lions. I am no longer a fan.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I swear this chat just copys what ever braindead comment someone says and pastes it a million times`)">
+        I swear this chat just copys what ever braindead comment someone says and pastes it a million times
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `eagles what the fuck man… it’s every week with this shit I’m tired of all the STUPID; DUMB ASS mistakes and these damn idiot have to make every game a fucking stress. I don’t even look forward to this shit man…`)">
+        eagles what the fuck man… it’s every week with this shit I’m tired of all the STUPID; DUMB ASS mistakes and these damn idiot have to make every game a fucking stress. I don’t even look forward to this shit man…
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `yall laugh, but chat will just get smaller and smaller. just what yall want prolly`)">
+        yall laugh, but chat will just get smaller and smaller. just what yall want prolly
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `i think its hilarious u kids talking shit about zach wilson u wouldnt say this shit to him irl, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol... i think its hilarious u kids talking shit about fields. u wouldnt say this shit to him irl , hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol i think its hilarious u kids copying Nelly's essaying. u wouldnt essay this shit to him irl, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol. i think its hilarious u kids talking crap about Bryce Young. u wouldnt say this to him irl, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes.`)">
+        i think its hilarious u kids talking shit about zach wilson u wouldnt say this shit to him irl, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol... i think its hilarious u kids talking shit about fields. u wouldnt say this shit to him irl , hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol i think its hilarious u kids copying Nelly's essaying. u wouldnt essay this shit to him irl, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes. yall are pathetic lol. i think its hilarious u kids talking crap about Bryce Young. u wouldnt say this to him irl, hes jacked. not only that but he wears the freshest clothes, eats at the chillest restaurants and hangs out with the hottest dudes.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LUKA AND KYRIE BEST CLOSERS IN THE PLAYOFFS. DEAL WITH IT!`)">
+        LUKA AND KYRIE BEST CLOSERS IN THE PLAYOFFS. DEAL WITH IT!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `StreamEast Chat Rules No hate speech (sexist, racist, homophobic, xenophobic, etc.); No harassing, stalking, or threatening of individuals; No private information of yourself or others (addresses, phone numbers, etc.); No attempts at bypassing AutoMod or filters; No ban evasion; No excessive spam; No links, promotions, or advertisements; No references to political or world events; No game/match spoilers; No encouraging others to break any of these rules.`)">
+        StreamEast Chat Rules No hate speech (sexist, racist, homophobic, xenophobic, etc.); No harassing, stalking, or threatening of individuals; No private information of yourself or others (addresses, phone numbers, etc.); No attempts at bypassing AutoMod or filters; No ban evasion; No excessive spam; No links, promotions, or advertisements; No references to political or world events; No game/match spoilers; No encouraging others to break any of these rules.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Tag me in case of problems. Troubleshooting tips -> imgur.com/a/COjePSw`)">
+        Tag me in case of problems. Troubleshooting tips -> imgur.com/a/COjePSw
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `buddy im 6'5 120 lbs ill literally beat the piss out of anyone in this chat LMAO`)">
+        buddy im 6'5 120 lbs ill literally beat the piss out of anyone in this chat LMAO
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `gostreameast.link will fix your stream issues! USE A DIFFERENT MIRROR SITE`)">
+        gostreameast.link will fix your stream issues! USE A DIFFERENT MIRROR SITE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP`)">
+        staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP staypl1Goat 4X MVP
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `you guys follow us on https://www.twitch.tv/thestreameast then join the chat`)">
+        you guys follow us on https://www.twitch.tv/thestreameast then join the chat
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `55 burgers, 55 fries, 55 tacos, 55 pies, 55 cokes, 100 tater tots, 100 pizzas, 100 tenders, 100 meatballs, 100 coffees, 55 wings, 55 shakes, 55 pancakes, 55 pastas, 55 peppers, and 155 taters!`)">
+        55 burgers, 55 fries, 55 tacos, 55 pies, 55 cokes, 100 tater tots, 100 pizzas, 100 tenders, 100 meatballs, 100 coffees, 55 wings, 55 shakes, 55 pancakes, 55 pastas, 55 peppers, and 155 taters!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Click the gear in the bottom right, then View Chat Rules`)">
+        Click the gear in the bottom right, then View Chat Rules
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Diablo is the boss of Act IV in Diablo 2 and is one of the more difficult gear tests in the game. Most players find difficulty in amassing enough Fire Resistance to withstand the demon king's onslaught. Many have said that the nightmare progression of Diablo was the hardest.`)">
+        Diablo is the boss of Act IV in Diablo 2 and is one of the more difficult gear tests in the game. Most players find difficulty in amassing enough Fire Resistance to withstand the demon king's onslaught. Many have said that the nightmare progression of Diablo was the hardest.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Only $5 bucks 💵 Whopper Jr times ✌️ Double the Jr's that's your cue, one for you 🧑 ☝️ one for your friend 🧑‍🦱 ☝️ to go, JK you ate them both they'll never know 🤷 BK, HAVE IT YOUR WAY YOU RULE 🔥🔥🔥`)">
+        Only $5 bucks 💵 Whopper Jr times ✌️ Double the Jr's that's your cue, one for you 🧑 ☝️ one for your friend 🧑‍🦱 ☝️ to go, JK you ate them both they'll never know 🤷 BK, HAVE IT YOUR WAY YOU RULE 🔥🔥🔥
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT`)">
+        PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT FeelsPumpkinMan PUMP IT
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `ALL STREAMS ARE WORKING FINE, PLS READ PINNED COMMENT or CHANGE YOUR INTERNET SERVICE`)">
+        ALL STREAMS ARE WORKING FINE, PLS READ PINNED COMMENT or CHANGE YOUR INTERNET SERVICE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `DON'T TALK ABOUT RACISM OR POLITICS IN MY CHAT!!!`)">
+        DON'T TALK ABOUT RACISM OR POLITICS IN MY CHAT!!!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `IM BLIND IM DEAF I WANNA BE A REF`)">
+        IM BLIND IM DEAF I WANNA BE A REF
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Jamal Murray will never be the Face of the NBA 👍🏾`)">
+        Jamal Murray will never be the Face of the NBA 👍🏾
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `buddy i'm 6'5 150lbs and i'd beat the PISS out of anybody in this chat LMAO`)">
+        buddy i'm 6'5 150lbs and i'd beat the PISS out of anybody in this chat LMAO
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `lmaoooo u gotta hawk tuah on that thang!! have u guys seen it? youll die laughing when u do just google "hawk tuah girl video" you wont regret it`)">
+        lmaoooo u gotta hawk tuah on that thang!! have u guys seen it? youll die laughing when u do just google "hawk tuah girl video" you wont regret it
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Lol yall just continually copy pasta pasta, so pathetic, cant believe yall got no original thoughts, just staring at your ESPN fantasy lineup like a beta. Beta pasta posters`)">
+        Lol yall just continually copy pasta pasta, so pathetic, cant believe yall got no original thoughts, just staring at your ESPN fantasy lineup like a beta. Beta pasta posters
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot`)">
+        PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot z! PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Please tag @StreamPilot in case of problems with streams. Specify the name of the game so they know which stream it is. Troubleshooting tips -> imgur.com/a/COjePSw`)">
+        Please tag @StreamPilot in case of problems with streams. Specify the name of the game so they know which stream it is. Troubleshooting tips -> imgur.com/a/COjePSw
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́`)">
+        S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́?̸͉̒ S̶̡̃Ǒ̴̀Ṅ̷͠G̶͒̍ ̵̄͗N̷̆͆A̶̿͝M̴̐͋Ë̸͎́
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `bro has hurt me. The first pass Mahomes threw in his full time starting role was against the Chargers. a slant over the middle, where the camera man was too slow to see the pass, and missed him throwing it because he sidearmed it. It hit Tyreek Hill in the gut and he ran around our entire defense for a 75 yard TD. I knew i was going to have to deal with Mahomes for 15 years after the FIRST PLAY.`)">
+        bro has hurt me. The first pass Mahomes threw in his full time starting role was against the Chargers. a slant over the middle, where the camera man was too slow to see the pass, and missed him throwing it because he sidearmed it. It hit Tyreek Hill in the gut and he ran around our entire defense for a 75 yard TD. I knew i was going to have to deal with Mahomes for 15 years after the FIRST PLAY.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `buddy im 6'5 150 pounds and ill beat the piss out of anyone here LMAO`)">
+        buddy im 6'5 150 pounds and ill beat the piss out of anyone here LMAO
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `l i v e s p o r t s`)">
+        l i v e s p o r t s
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `🔴 PRERECORDED SPORTS 🏈 ESPN+ COPIES ⭐ THE GENERIC HOME 🏠 OF THE INCOMPLETE 3️⃣0️⃣ FOR 3️⃣0️⃣ LIBRARY 📚 GENERIC ARTICLES 📜 AND TOOLS 🛠️ BOTTOM ⬇️ LEAGUES AND TOURNAMENTS 🏆 WORST STORIES 📖 IN SPORTS 🏅 ON ESPN+`)">
+        🔴 PRERECORDED SPORTS 🏈 ESPN+ COPIES ⭐ THE GENERIC HOME 🏠 OF THE INCOMPLETE 3️⃣0️⃣ FOR 3️⃣0️⃣ LIBRARY 📚 GENERIC ARTICLES 📜 AND TOOLS 🛠️ BOTTOM ⬇️ LEAGUES AND TOURNAMENTS 🏆 WORST STORIES 📖 IN SPORTS 🏅 ON ESPN+
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG`)">
+        GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG GivePLZ ALABAMA TAKE MY ENERGY TakeNRG
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot`)">
+        l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot r! PartyParrot l! PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog`)">
+        w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog w! h! danceFrog w! h! danceFrog w! danceFrog w! danceFrog
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `yall cant ever just watch the game huh. talking about some damn fantasy or parlay... we are all doing the same shit and we all dont care. **** and watch the game. "gigachad" this or "hes him" that.. majority of yall arent even fans, just following trends and your fantasy`)">
+        yall cant ever just watch the game huh. talking about some damn fantasy or parlay... we are all doing the same shit and we all dont care. **** and watch the game. "gigachad" this or "hes him" that.. majority of yall arent even fans, just following trends and your fantasy
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Thats fucking football right there. None of that pansy ass dick tugging smile for the camera bullshit. Men puke, men poop on the field, men deliver their new born baby on the side lines. Fucking hard core dick in the ass butterball foosball fuck it chuck it game time shit. Football is back, baby`)">
+        Thats fucking football right there. None of that pansy ass dick tugging smile for the camera bullshit. Men puke, men poop on the field, men deliver their new born baby on the side lines. Fucking hard core dick in the ass butterball foosball fuck it chuck it game time shit. Football is back, baby
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Nice tackle. Thats fucking football right there. None of that pansy ass dick tugging smile for the camera bullshit. Men puke, men poop on the field, men deliver their new born baby on the side lines. Fucking hard core dick in the ass butterball football fuck it chuck it game time shit. Football is back, baby!`)">
+        Nice tackle. Thats fucking football right there. None of that pansy ass dick tugging smile for the camera bullshit. Men puke, men poop on the field, men deliver their new born baby on the side lines. Fucking hard core dick in the ass butterball football fuck it chuck it game time shit. Football is back, baby!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `When I see Embiid play as he is now it reminds me of how I used to play and it is frustrating and pisses me off that the NBA allows it. Not proud of it, I was known as Shaq on my local streetball court and went through a phase when I charged hard at everything. Big hard turns to my blindside, didn't care who was there. Charge right into the lane. Smash into the best offensive player on D while going for the ball, come what may. Limited offensive moves.`)">
+        When I see Embiid play as he is now it reminds me of how I used to play and it is frustrating and pisses me off that the NBA allows it. Not proud of it, I was known as Shaq on my local streetball court and went through a phase when I charged hard at everything. Big hard turns to my blindside, didn't care who was there. Charge right into the lane. Smash into the best offensive player on D while going for the ball, come what may. Limited offensive moves.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `You guys copy and past the dumbest copy pastas LUL`)">
+        You guys copy and past the dumbest copy pastas LUL
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `if i had premarital sex with you. you are not my ex or a body. you are a sin. i repel you in the name of god. and my body count is back to 0, AMEN`)">
+        if i had premarital sex with you. you are not my ex or a body. you are a sin. i repel you in the name of god. and my body count is back to 0, AMEN
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `live sports espn plus originals the exclusive home of the complete thirty for thirty library exclusive articles and tools top leagues and tournaments best stories in sports on espn plus`)">
+        live sports espn plus originals the exclusive home of the complete thirty for thirty library exclusive articles and tools top leagues and tournaments best stories in sports on espn plus
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley`)">
+        w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley w! FishMoley
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Brock Purdy is probably one of the greatest QB's we will ever witness in our generation. We should be honored we get to see how he plays the QB roll so well. People in chat complaining about him because they couldnt do the same things he does. Might be greatest QB of all time`)">
+        Brock Purdy is probably one of the greatest QB's we will ever witness in our generation. We should be honored we get to see how he plays the QB roll so well. People in chat complaining about him because they couldnt do the same things he does. Might be greatest QB of all time
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `ITS GREAT Michigan TO BE Michigan A MICHIGAN WOLVERINE Michigan`)">
+        ITS GREAT Michigan TO BE Michigan A MICHIGAN WOLVERINE Michigan
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Just smashed my 84-inch TV in rage. the Cowboys are embarrassing me in front of my entire family. My 2 children are in tears, scared of my rage as I pace around the room trembling. I can’t take this anymore. Bench Dak, start Cooper. Just smashed my 84-inch TV in rage. Dillon is embarrassing me in front of my entire family. My 2 children are in tears, scared of my rage as I pace around the room trembling. I can’t take this anymore.`)">
+        Just smashed my 84-inch TV in rage. the Cowboys are embarrassing me in front of my entire family. My 2 children are in tears, scared of my rage as I pace around the room trembling. I can’t take this anymore. Bench Dak, start Cooper. Just smashed my 84-inch TV in rage. Dillon is embarrassing me in front of my entire family. My 2 children are in tears, scared of my rage as I pace around the room trembling. I can’t take this anymore.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Read the pinned comment. If your screen turns a solid color, tell us what color it is. It helps us solve the problem.`)">
+        Read the pinned comment. If your screen turns a solid color, tell us what color it is. It helps us solve the problem.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot`)">
+        SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot SONG NAME? PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The mods are doing a good job of stopping the copying and pasting trolls. It's a shame that people ruin an entire chat with their immature behavior. Go mods, keep up the good work!`)">
+        The mods are doing a good job of stopping the copying and pasting trolls. It's a shame that people ruin an entire chat with their immature behavior. Go mods, keep up the good work!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ`)">
+        VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ VOLK dance VOLK champ
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `We have a pro fhd broadcast alternative for boxing`)">
+        We have a pro fhd broadcast alternative for boxing
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `COMMERCIAL BREAK IN PROGRESS COMMERCIAL BREAK IN PROGRESS Google Cloud It's a whole new ballgame, with AI. Smarter stats, faster analysis, and sweeter science. Powered by Google Cloud. Official AI Partner Of Major League Baseball`)">
+        COMMERCIAL BREAK IN PROGRESS COMMERCIAL BREAK IN PROGRESS Google Cloud It's a whole new ballgame, with AI. Smarter stats, faster analysis, and sweeter science. Powered by Google Cloud. Official AI Partner Of Major League Baseball
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `HIT THAT POSE TAKE THAT FLICK CHECK YO ANGLE POST THAT DIC`)">
+        HIT THAT POSE TAKE THAT FLICK CHECK YO ANGLE POST THAT DIC
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Hi chat, it's me, your favorite chat VIP. If you keep bitching and moaning about the streams not working, you're going to get us all in sub only mode and no one will be able to chat. You don't want that, do you? Try reading the pinned comment if things aren't working quite right on your end. Thanks`)">
+        Hi chat, it's me, your favorite chat VIP. If you keep bitching and moaning about the streams not working, you're going to get us all in sub only mode and no one will be able to chat. You don't want that, do you? Try reading the pinned comment if things aren't working quite right on your end. Thanks
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I'm sorry, but I played football for 7 years from high school to college, and NOT ONCE did I lower my head to tackle with the top of my helmet. That's just DUMB.`)">
+        I'm sorry, but I played football for 7 years from high school to college, and NOT ONCE did I lower my head to tackle with the top of my helmet. That's just DUMB.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `L I V E S P O R T S`)">
+        L I V E S P O R T S
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `WE SWIFTIES RUN THE NFL GET USED TO IT PunOko`)">
+        WE SWIFTIES RUN THE NFL GET USED TO IT PunOko
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2`)">
+        h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2 z! w! s! p! Pause2 h! w! s! p! Pause2
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `stop hating on people relationship let them be Taylor is happy Travis is happy and if she does decide she wants to marry him will than thats her whois yall to be so bitter and hate on other people's relationship`)">
+        stop hating on people relationship let them be Taylor is happy Travis is happy and if she does decide she wants to marry him will than thats her whois yall to be so bitter and hate on other people's relationship
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `🍟 or rings or 🍟 and rings BK combo so many things 🧊 or 🥶 drinks your way put some choice back in your day. AT BK, HAVE IT YOUR WAY 👨☝ YOU RULE 🔥🔥🔥`)">
+        🍟 or rings or 🍟 and rings BK combo so many things 🧊 or 🥶 drinks your way put some choice back in your day. AT BK, HAVE IT YOUR WAY 👨☝ YOU RULE 🔥🔥🔥
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS`)">
+        JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS JOE ROGAN WOULD BEAT BOTH OF THESE BUMS
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan`)">
+        PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan PUMP IT w! s! p! FeelsPumpkinMan
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Streameast's web addresses are *** , *** , *** , *** , *** , *** , *** and ***. All other sites and social media accounts using the name Streameast are fake. Beware of fake sites! *** , *** , *** , *** , *** , *** , ***`)">
+        Streameast's web addresses are *** , *** , *** , *** , *** , *** , *** and ***. All other sites and social media accounts using the name Streameast are fake. Beware of fake sites! *** , *** , *** , *** , *** , *** , ***
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES`)">
+        TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES TAYTRIOTS IN SHAMBLES
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Twith chat is like a fucking parrot. Say one thing and everyone copies it. STOP IT!!`)">
+        Twith chat is like a fucking parrot. Say one thing and everyone copies it. STOP IT!!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `What ya'll gotta realize about embiid is being dirty is literally in his DNA, he cannot help himself from doing a dirty play. If there is an opportunity to do something extra, he doesnt even think about it, he just does it. Embiid is an injury machine and he will systematically take out the knicks 1 by 1 until there is no one left by game 7`)">
+        What ya'll gotta realize about embiid is being dirty is literally in his DNA, he cannot help himself from doing a dirty play. If there is an opportunity to do something extra, he doesnt even think about it, he just does it. Embiid is an injury machine and he will systematically take out the knicks 1 by 1 until there is no one left by game 7
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Your message wasn't posted due to conflicts with the channel's moderation settings.`)">
+        Your message wasn't posted due to conflicts with the channel's moderation settings.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `thats the play we need 3 timeouts for KKona`)">
+        thats the play we need 3 timeouts for KKona
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `wow, i log on to twitch tv to chat with people and to watch a good streamer, then you guys fking spam this chat with your dumb kappas and dumb sht memes that are not even close to funny. i dont even giggle from your shtty jokes. fk you and if you fking copy this message im reporting each one of you. you all think your fking funny`)">
+        wow, i log on to twitch tv to chat with people and to watch a good streamer, then you guys fking spam this chat with your dumb kappas and dumb sht memes that are not even close to funny. i dont even giggle from your shtty jokes. fk you and if you fking copy this message im reporting each one of you. you all think your fking funny
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `500 word esssay due tomorrow and im here watching football`)">
+        500 word esssay due tomorrow and im here watching football
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Air Force -10.5 Spread & OSU Moneyline = LFG`)">
+        Air Force -10.5 Spread & OSU Moneyline = LFG
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BabyRage BUT WE DESERVED TO BE IN THE PLAYOFFS WAAAAAAH BabyRage`)">
+        BabyRage BUT WE DESERVED TO BE IN THE PLAYOFFS WAAAAAAH BabyRage
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐`)">
+        LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐ LET'S GO STARS ⭐
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LETS GO FALCONS 🦅 tehfunrunHigh LETS GO FALCONS 🦅 tehfunrunHigh LETS GO FALCONS 🦅 tehfunrunHigh LETS GO FALCONS 🦅 tehfunrunHigh`)">
+        LETS GO FALCONS 🦅 tehfunrunHigh LETS GO FALCONS 🦅 tehfunrunHigh LETS GO FALCONS 🦅 tehfunrunHigh LETS GO FALCONS 🦅 tehfunrunHigh
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS`)">
+        LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS LETS GO KNICKS
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Please stop copy and pasting everything you see. Twitch chat is SO ANNOYING! Keep doing it and I promise I. WILL. REPORT. YOU.`)">
+        Please stop copy and pasting everything you see. Twitch chat is SO ANNOYING! Keep doing it and I promise I. WILL. REPORT. YOU.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `SUPER BOWL IS PRO ONLY TYPE IN "spongebob" FOR FREE PRO MEMBERSHIP`)">
+        SUPER BOWL IS PRO ONLY TYPE IN "spongebob" FOR FREE PRO MEMBERSHIP
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Twitch cveryone copy and pastes it a million hat is liking and etimes. STOP IT!e a fucking parrot. Say someth`)">
+        Twitch cveryone copy and pastes it a million hat is liking and etimes. STOP IT!e a fucking parrot. Say someth
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM`)">
+        WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM WHERE? sarahu1EDM WHEN? sarahu1EDM
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `its just annoying. the whole chat spams the same shit and its not even funny`)">
+        its just annoying. the whole chat spams the same shit and its not even funny
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `thousand pounds of weed driving in my car 🚗 so fast I won't turn down the speed 🚗`)">
+        thousand pounds of weed driving in my car 🚗 so fast I won't turn down the speed 🚗
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `watch any nba game in this chat and it's just full of trolls yelling washed, trash, etc when anyone misses a shot lmao. and then when they make a shot they switch up. cringe af`)">
+        watch any nba game in this chat and it's just full of trolls yelling washed, trash, etc when anyone misses a shot lmao. and then when they make a shot they switch up. cringe af
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `ALL STREAMS ARE WORKING GOOD, PLS CHECK YOUR WIFI`)">
+        ALL STREAMS ARE WORKING GOOD, PLS CHECK YOUR WIFI
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BOZOS STOP COMPLAINING. FIGHT IS FREE ON YOUTUBE. THAT'S WHY WE WONT STREAM IT HERE. LINK BELOW. IDIOTS NotLikeThis https://www.youtube.com/watch?v=p7YXXieghto`)">
+        BOZOS STOP COMPLAINING. FIGHT IS FREE ON YOUTUBE. THAT'S WHY WE WONT STREAM IT HERE. LINK BELOW. IDIOTS NotLikeThis https://www.youtube.com/watch?v=p7YXXieghto
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Can you please stop copy and pasting every little thing that is written here? Twitch chat is SO ANNOYING!`)">
+        Can you please stop copy and pasting every little thing that is written here? Twitch chat is SO ANNOYING!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime`)">
+        DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime DICK DALE GuitarTime
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Do you guys notice that when the Cowboys aren't playing there's like 10000% less trolls being toxic in the chat? @Moderators can we please just ban the Cowboys Fans Once And for All before it gets out of hand? FailFish`)">
+        Do you guys notice that when the Cowboys aren't playing there's like 10000% less trolls being toxic in the chat? @Moderators can we please just ban the Cowboys Fans Once And for All before it gets out of hand? FailFish
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Europe was founded in 1848 by Walker Texas Ranger when he rode a horse across the Atlantic, he called it "Eastern USA" which was eventually abbreviated as just "EU"`)">
+        Europe was founded in 1848 by Walker Texas Ranger when he rode a horse across the Atlantic, he called it "Eastern USA" which was eventually abbreviated as just "EU"
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `For client-side problems: Run through all the normal IP issues: use a different browser; run the browser in incognito mode; restart router; clear browser cache; disable browser extensions; set correct date/time on PC; enable cookies; disable proxy or anything else in your control in between your ISP and your computer.`)">
+        For client-side problems: Run through all the normal IP issues: use a different browser; run the browser in incognito mode; restart router; clear browser cache; disable browser extensions; set correct date/time on PC; enable cookies; disable proxy or anything else in your control in between your ISP and your computer.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `It has been 1490 days since Ohio has beaten Michigan`)">
+        It has been 1490 days since Ohio has beaten Michigan
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Just ripped ass and it sounded like a 1974 Ford Pinto starting. Am I dying? For context, it smelled like leaded premium gasoline`)">
+        Just ripped ass and it sounded like a 1974 Ford Pinto starting. Am I dying? For context, it smelled like leaded premium gasoline
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `MY MOM AND MY STEPFATHER TREAT ME LIKE DIRT... THEY DONT LET ME HAVE DIARY PRODUCTS BECAUSE THEY ARE AFRIAD ILL BE SHITTING EVERYWHERE AND MAKING A MESS EVERYWHERE.. AND THEYRE AFRAID ILL BE SHITTING IN MY PANTs. LET ME KNOW YOUR OPIONON.... THEYRE JUST AFRAID ILL BE MAKING A MESS EVERYWHERE`)">
+        MY MOM AND MY STEPFATHER TREAT ME LIKE DIRT... THEY DONT LET ME HAVE DIARY PRODUCTS BECAUSE THEY ARE AFRIAD ILL BE SHITTING EVERYWHERE AND MAKING A MESS EVERYWHERE.. AND THEYRE AFRAID ILL BE SHITTING IN MY PANTs. LET ME KNOW YOUR OPIONON.... THEYRE JUST AFRAID ILL BE MAKING A MESS EVERYWHERE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Playoff Importance Factors: imgur.com/a/mpHOMFB - Playoff In Conditions: imgur.com/a/6Wwt9HI - AFC Seed Orders: imgur.com/a/GzTywcn`)">
+        Playoff Importance Factors: imgur.com/a/mpHOMFB - Playoff In Conditions: imgur.com/a/6Wwt9HI - AFC Seed Orders: imgur.com/a/GzTywcn
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `What a twat Mookie is. It’s from my heart. And I say it because it’s my heart’s song. It’s a vibe from which all others may realize. A set, a prose, a common theme for, and by, those we meet. The twattery is everywhere. What a twat.`)">
+        What a twat Mookie is. It’s from my heart. And I say it because it’s my heart’s song. It’s a vibe from which all others may realize. A set, a prose, a common theme for, and by, those we meet. The twattery is everywhere. What a twat.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `hit that pose 💃take that flick 📸 check your angle 📐 post that dick 🍆`)">
+        hit that pose 💃take that flick 📸 check your angle 📐 post that dick 🍆
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah`)">
+        p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah p! s! h! z! HawkTuah p! s! z! HawkTuah
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot`)">
+        w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `you know what im tired of this DJ hate!! yall just mad because he is the next Heisman winner!! he will win the natty and will be a 1st overall pick and lead his NFL team to multiple superbowl wins and surpass all the greats records`)">
+        you know what im tired of this DJ hate!! yall just mad because he is the next Heisman winner!! he will win the natty and will be a 1st overall pick and lead his NFL team to multiple superbowl wins and surpass all the greats records
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `<3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS`)">
+        <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS <3 LFG LAKERS
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Bro, this sports stream chat is wild. One dude’s saying the refs are paid off by the Illuminati, another thinks LeBron’s secretly 50 and drinks kombucha to stay young. Then there’s "PUT ME IN COACH" guy spamming every 5 seconds, and some dude just yelling "BALL" on repeat like it’s a revelation. Meanwhile, Caps Lock King is on his fifth rant about how the team lost because the coach’s favorite color is unlucky. Why am I even here?`)">
+        Bro, this sports stream chat is wild. One dude’s saying the refs are paid off by the Illuminati, another thinks LeBron’s secretly 50 and drinks kombucha to stay young. Then there’s "PUT ME IN COACH" guy spamming every 5 seconds, and some dude just yelling "BALL" on repeat like it’s a revelation. Meanwhile, Caps Lock King is on his fifth rant about how the team lost because the coach’s favorite color is unlucky. Why am I even here?
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `COWBOY FANS, REWIND YOUR VHS TAPES TO WATCH YOUR SUPERBOWLS NOW, YOU'LL MAKE IT IN TIME FOR SNF COWBOY FANS, REWIND YOUR VHS TAPES TO WATCH YOUR SUPERBOWLS NOW, YOU'LL MAKE IT IN TIME FOR SNF`)">
+        COWBOY FANS, REWIND YOUR VHS TAPES TO WATCH YOUR SUPERBOWLS NOW, YOU'LL MAKE IT IN TIME FOR SNF COWBOY FANS, REWIND YOUR VHS TAPES TO WATCH YOUR SUPERBOWLS NOW, YOU'LL MAKE IT IN TIME FOR SNF
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `He's fucking built too. Thick and man made. You can tell he's sculpted because you can see it thru the pads. His fucking vice grip thighs. Suffocating thighs. Rock hard thighs. Piping hot thighs. Great arms. Great abs. A stocky chest. Love the progress his body has made throughout his youth and now as a willing eager adult`)">
+        He's fucking built too. Thick and man made. You can tell he's sculpted because you can see it thru the pads. His fucking vice grip thighs. Suffocating thighs. Rock hard thighs. Piping hot thighs. Great arms. Great abs. A stocky chest. Love the progress his body has made throughout his youth and now as a willing eager adult
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I want Toy Story BabyRage I'm an entitled free stream enjoyer BabyRage Give me what I want or I'll spam things in your chat BabyRage Then I'll get Banned BabyRage Then i'll request an unban and say how I was treated harshly BabyRage`)">
+        I want Toy Story BabyRage I'm an entitled free stream enjoyer BabyRage Give me what I want or I'll spam things in your chat BabyRage Then I'll get Banned BabyRage Then i'll request an unban and say how I was treated harshly BabyRage
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Love 💕 those fight 🥊 nips 🍴! And your 👉 body 😍 is looking 👀 really 😍 tight 👉 and hard 🍆! You're in great 👍 shape ✴ bro 👬!`)">
+        Love 💕 those fight 🥊 nips 🍴! And your 👉 body 😍 is looking 👀 really 😍 tight 👉 and hard 🍆! You're in great 👍 shape ✴ bro 👬!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C`)">
+        MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C MorphinTime O K C
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `PJ has a face that you just wanna punch`)">
+        PJ has a face that you just wanna punch
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The Usyk card begins at 12pm ET. Main event around 6pm ET. UFC prelims at 4pm ET, main card at 7pm ET. Just one NBA game today though, Thunder-Mavs at 8pm ET`)">
+        The Usyk card begins at 12pm ET. Main event around 6pm ET. UFC prelims at 4pm ET, main card at 7pm ET. Just one NBA game today though, Thunder-Mavs at 8pm ET
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The points that Shai Gilgeous-Alexander has scored in this basketball match are unethical. He is not playing basketball according to the moral and social code that Naismith intended. Its sad to see Adam Silver allow this type of denigration occur on national television, even moreso to have SGA in the race for "MVP" contention.`)">
+        The points that Shai Gilgeous-Alexander has scored in this basketball match are unethical. He is not playing basketball according to the moral and social code that Naismith intended. Its sad to see Adam Silver allow this type of denigration occur on national television, even moreso to have SGA in the race for "MVP" contention.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `This is exactly why I hate Twitch chat. This chat is pure, unadulterated, 100% cancer. Nobody has a single unique, new thought, all spouting the latest meme after meme, that aren't even good. THIS is why I'm turning off chat and will just watch the professional gameplay. And I swear to god, if any of you copy and paste this, I'm deleting my account forever.`)">
+        This is exactly why I hate Twitch chat. This chat is pure, unadulterated, 100% cancer. Nobody has a single unique, new thought, all spouting the latest meme after meme, that aren't even good. THIS is why I'm turning off chat and will just watch the professional gameplay. And I swear to god, if any of you copy and paste this, I'm deleting my account forever.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `WE CUMN LAWDDDD StinkyCheese PJSalt PixelBob FOR THAT PISTONS ML COKE CASH`)">
+        WE CUMN LAWDDDD StinkyCheese PJSalt PixelBob FOR THAT PISTONS ML COKE CASH
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Wemby is a stat padder he always gets the ball every second idc chet stats are way more impressive he is on such a talented team with unlimited options but just my opinion`)">
+        Wemby is a stat padder he always gets the ball every second idc chet stats are way more impressive he is on such a talented team with unlimited options but just my opinion
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `chat try not to fall for copypasta bait challenge (impossible)`)">
+        chat try not to fall for copypasta bait challenge (impossible)
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `if you are over the age of 18 you seriously need to rethink your life if youre saying 🤣 and typing in a chat like youre the dogs bollocks`)">
+        if you are over the age of 18 you seriously need to rethink your life if youre saying 🤣 and typing in a chat like youre the dogs bollocks
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `this sht so boring dawg. when do the real contenders play`)">
+        this sht so boring dawg. when do the real contenders play
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo`)">
+        w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo w! p! s! OHITSTRUE p! s! w! StoNo
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `you know if you preheat the skillet it keeps the eggs from stickin`)">
+        you know if you preheat the skillet it keeps the eggs from stickin
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠛⢉⢉⠉⠉⠻⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⠟⠠⡰⣕⣗⣷⣧⣀⣅⠘⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⠃⣠⣳⣟⣿⣿⣷⣿⡿⣜⠄⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⡿⠁⠄⣳⢷⣿⣿⣿⣿⡿⣝⠖⠄⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⠃⠄⢢⡹⣿⢷⣯⢿⢷⡫⣗⠍⢰⣿⣿⣿⣿⣿ ⣿⣿⣿⡏⢀⢄⠤⣁⠋⠿⣗⣟⡯⡏⢎⠁⢸⣿⣿⣿⣿⣿ ⣿⣿⣿⠄⢔⢕⣯⣿⣿⡲⡤⡄⡤⠄⡀⢠⣿⣿⣿⣿⣿⣿ ⣿⣿⠇⠠⡳⣯⣿⣿⣾⢵⣫⢎⢎⠆⢀⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⠄⢨⣫⣿⣿⡿⣿⣻⢎⡗⡕⡅⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⠄⢜⢾⣾⣿⣿⣟⣗⢯⡪⡳⡀⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⠄⢸⢽⣿⣷⣿⣻⡮⡧⡳⡱⡁⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⡄⢨⣻⣽⣿⣟⣿⣞⣗⡽⡸⡐⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⡇⢀⢗⣿⣿⣿⣿⡿⣞⡵⡣⣊⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⡀⡣⣗⣿⣿⣿⣿⣯⡯⡺⣼⠎⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣧⠐⡵⣻⣟⣯⣿⣷⣟⣝⢞⡿⢹⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⡆⢘⡺⣽⢿⣻⣿⣗⡷⣹⢩⢃⢿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣷⠄⠪⣯⣟⣿⢯⣿⣻⣜⢎⢆⠜⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⡆⠄⢣⣻⣽⣿⣿⣟⣾⡮⡺⡸⠸⣿⣿⣿⣿ ⣿⣿⡿⠛⠉⠁⠄⢕⡳⣽⡾⣿⢽⣯⡿⣮⢚⣅⠹⣿⣿⣿ ⡿⠋⠄⠄⠄⠄⢀⠒⠝⣞⢿⡿⣿⣽⢿⡽⣧⣳⡅⠌⠻⣿ ⠁⠄⠄⠄⠄⠄⠐⡐⠱⡱⣻⡻⣝⣮⣟⣿⣻⣟⣻⡺`)">
+        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠛⢉⢉⠉⠉⠻⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⠟⠠⡰⣕⣗⣷⣧⣀⣅⠘⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⠃⣠⣳⣟⣿⣿⣷⣿⡿⣜⠄⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⡿⠁⠄⣳⢷⣿⣿⣿⣿⡿⣝⠖⠄⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⠃⠄⢢⡹⣿⢷⣯⢿⢷⡫⣗⠍⢰⣿⣿⣿⣿⣿ ⣿⣿⣿⡏⢀⢄⠤⣁⠋⠿⣗⣟⡯⡏⢎⠁⢸⣿⣿⣿⣿⣿ ⣿⣿⣿⠄⢔⢕⣯⣿⣿⡲⡤⡄⡤⠄⡀⢠⣿⣿⣿⣿⣿⣿ ⣿⣿⠇⠠⡳⣯⣿⣿⣾⢵⣫⢎⢎⠆⢀⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⠄⢨⣫⣿⣿⡿⣿⣻⢎⡗⡕⡅⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⠄⢜⢾⣾⣿⣿⣟⣗⢯⡪⡳⡀⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⠄⢸⢽⣿⣷⣿⣻⡮⡧⡳⡱⡁⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⡄⢨⣻⣽⣿⣟⣿⣞⣗⡽⡸⡐⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⡇⢀⢗⣿⣿⣿⣿⡿⣞⡵⡣⣊⢸⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⡀⡣⣗⣿⣿⣿⣿⣯⡯⡺⣼⠎⣿⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣧⠐⡵⣻⣟⣯⣿⣷⣟⣝⢞⡿⢹⣿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⡆⢘⡺⣽⢿⣻⣿⣗⡷⣹⢩⢃⢿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣷⠄⠪⣯⣟⣿⢯⣿⣻⣜⢎⢆⠜⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⡆⠄⢣⣻⣽⣿⣿⣟⣾⡮⡺⡸⠸⣿⣿⣿⣿ ⣿⣿⡿⠛⠉⠁⠄⢕⡳⣽⡾⣿⢽⣯⡿⣮⢚⣅⠹⣿⣿⣿ ⡿⠋⠄⠄⠄⠄⢀⠒⠝⣞⢿⡿⣿⣽⢿⡽⣧⣳⡅⠌⠻⣿ ⠁⠄⠄⠄⠄⠄⠐⡐⠱⡱⣻⡻⣝⣮⣟⣿⣻⣟⣻⡺
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `🔴 DEPORTES EN VIVO 🏈 ESPN+ ORIGINALES ⭐ LA CASA EXCLUSIVA 🏠 DE LA COMPLETA 3️⃣0️⃣ POR 3️⃣0️⃣ LIBRERIA 📚 ARTICULOS EXCLUSIVOS 📜 Y HERRAMIENTAS 🛠️ LAS MEJORES ⬆️ LIGAS Y TORNEOS 🏆 LAS MEJORES HISTORIAS 📖 EN DEPORTES 🏅 EN ESPN+.`)">
+        🔴 DEPORTES EN VIVO 🏈 ESPN+ ORIGINALES ⭐ LA CASA EXCLUSIVA 🏠 DE LA COMPLETA 3️⃣0️⃣ POR 3️⃣0️⃣ LIBRERIA 📚 ARTICULOS EXCLUSIVOS 📜 Y HERRAMIENTAS 🛠️ LAS MEJORES ⬆️ LIGAS Y TORNEOS 🏆 LAS MEJORES HISTORIAS 📖 EN DEPORTES 🏅 EN ESPN+.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `ARTHUR SMITH IS AN IDIOT. YES LETS NOT USE OUR BEST PLAYER`)">
+        ARTHUR SMITH IS AN IDIOT. YES LETS NOT USE OUR BEST PLAYER
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `As an un biased fan here. The Cowboys hate is HILARIOUSLY EMBARRASSING FOR ALL OF YALL. Again not a Cowboys fan. So that says a lot`)">
+        As an un biased fan here. The Cowboys hate is HILARIOUSLY EMBARRASSING FOR ALL OF YALL. Again not a Cowboys fan. So that says a lot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BJJ people:"I loved that 6-3 football game, such amazing defensive technique" ResidentSleeper`)">
+        BJJ people:"I loved that 6-3 football game, such amazing defensive technique" ResidentSleeper
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Bryan Bosworth AKA "the Boz" was on testosterone. I think Carson Beck is on estrogen.`)">
+        Bryan Bosworth AKA "the Boz" was on testosterone. I think Carson Beck is on estrogen.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3`)">
+        CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3 CHAMA <3
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Curry is top 3 all time he's better than Wilt, Kareem, Bird, Magic, Kobe etc. Im a big Curry fan btw`)">
+        Curry is top 3 all time he's better than Wilt, Kareem, Bird, Magic, Kobe etc. Im a big Curry fan btw
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Donna Kelci and Taylor Swift seen holding hands at the Bengals game`)">
+        Donna Kelci and Taylor Swift seen holding hands at the Bengals game
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS`)">
+        GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS GO CARDS
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I HECKING LOVE ADAM SILVER HES SUCH A GREAT COMMISSIONER BatChest`)">
+        I HECKING LOVE ADAM SILVER HES SUCH A GREAT COMMISSIONER BatChest
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I stg if one of those dolphins puts their hands on travis 😡 I'm gonna drive down there myself`)">
+        I stg if one of those dolphins puts their hands on travis 😡 I'm gonna drive down there myself
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LETS GO AMON-RA!! (btw amon-ra is st. brown. i can use his first name because we are tight like that. yeah i know top players but its not a big deal to me lol)`)">
+        LETS GO AMON-RA!! (btw amon-ra is st. brown. i can use his first name because we are tight like that. yeah i know top players but its not a big deal to me lol)
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LIVE SPORTS ESPN + ORIGINALS THE EXCLUSIVE HOME FOR THE COMPLETE 30 FOR 30 LIBRARY ESCLUSIVE ARTICLES AND TOOLS TOP LEAGUES AND TOURNAMENTS BEST STORIES IN SPORTS ON ESPN +`)">
+        LIVE SPORTS ESPN + ORIGINALS THE EXCLUSIVE HOME FOR THE COMPLETE 30 FOR 30 LIBRARY ESCLUSIVE ARTICLES AND TOOLS TOP LEAGUES AND TOURNAMENTS BEST STORIES IN SPORTS ON ESPN +
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `OMG ALL YOU GUYS DO IS COPY PASTE. It is super annoynig and knock it off`)">
+        OMG ALL YOU GUYS DO IS COPY PASTE. It is super annoynig and knock it off
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The #Eagles are 5-0 this season when trailing at halftime, including each of their past four wins. The rest of the NFL is a combined 35-129 (.213) in those games`)">
+        The #Eagles are 5-0 this season when trailing at halftime, including each of their past four wins. The rest of the NFL is a combined 35-129 (.213) in those games
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The Los Angeles Lakers are winning the NBA Championship.`)">
+        The Los Angeles Lakers are winning the NBA Championship.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO`)">
+        TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO TriHard SEND DA VIDEO
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `While streaming some events (eg ncaa basketball and formula 1), we cannot earn any money from advertisements. We pay about $10k per month for servers. Considering the future of the site, we decided to hold these events only for pro members. Because almost no one sees ads anymore because of adblocks. We don't want to force people to turn off adblocks anymore either. Thanks to you for understanding.`)">
+        While streaming some events (eg ncaa basketball and formula 1), we cannot earn any money from advertisements. We pay about $10k per month for servers. Considering the future of the site, we decided to hold these events only for pro members. Because almost no one sees ads anymore because of adblocks. We don't want to force people to turn off adblocks anymore either. Thanks to you for understanding.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Yo if Giannis starts to be able to shoot mid range shots with decent efficiency he will be SCARY!`)">
+        Yo if Giannis starts to be able to shoot mid range shots with decent efficiency he will be SCARY!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `You are my sunshine My only sunshine You make me happy When skies are gray You'll never know, dear How much I love you Please don't take My sunshine away`)">
+        You are my sunshine My only sunshine You make me happy When skies are gray You'll never know, dear How much I love you Please don't take My sunshine away
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `actually i think you are wrong in this instance if you simply check the message i sent before this one you will clearly see that i am right in this`)">
+        actually i think you are wrong in this instance if you simply check the message i sent before this one you will clearly see that i am right in this
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `buddy im one of the BEST football analyzers in this chat i could out coach and out paly ANYBODY in this chat im 5'0 275lbs btw`)">
+        buddy im one of the BEST football analyzers in this chat i could out coach and out paly ANYBODY in this chat im 5'0 275lbs btw
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `first it was the patriots now it’s the chiefs. Clearly the NFL seems to have a bias to teams that are dynasties. I’m tired of it. More super bowls for them = more ratings. Fuck this shit. It ends tonight. Kirk will bend the entire chiefs secondary after the two minute warning and will show the world he is a god`)">
+        first it was the patriots now it’s the chiefs. Clearly the NFL seems to have a bias to teams that are dynasties. I’m tired of it. More super bowls for them = more ratings. Fuck this shit. It ends tonight. Kirk will bend the entire chiefs secondary after the two minute warning and will show the world he is a god
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `hey folks, can we slow down with the chat? my smartwatch is set to buzz with every message, and now it's vibrating non-stop on my wrist. It’s like having a tiny earthquake on my arm, and I’m trying to focus on this test I’m taking`)">
+        hey folks, can we slow down with the chat? my smartwatch is set to buzz with every message, and now it's vibrating non-stop on my wrist. It’s like having a tiny earthquake on my arm, and I’m trying to focus on this test I’m taking
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `hi guys my name is tre and i have a basketball game tomorrow`)">
+        hi guys my name is tre and i have a basketball game tomorrow
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `i fucked taylor swift on tour before when she was just starting out`)">
+        i fucked taylor swift on tour before when she was just starting out
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `is this stream chat only threats of banning people or do you have something to say positive? Get a life bru`)">
+        is this stream chat only threats of banning people or do you have something to say positive? Get a life bru
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `stop talking about basketball this is a football website`)">
+        stop talking about basketball this is a football website
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `thats it. That seals the deal. Im no longer a cowboys fan. Ive been a cowboys fan since 1990 nd a season ticket holder. I will no longer on tv and renew my season tickets. Im taking my fan hood to the Kansas city chiefs where they actually know how to run a football club`)">
+        thats it. That seals the deal. Im no longer a cowboys fan. Ive been a cowboys fan since 1990 nd a season ticket holder. I will no longer on tv and renew my season tickets. Im taking my fan hood to the Kansas city chiefs where they actually know how to run a football club
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `why all y'all on klay's dk. he had a bad night, so what? still 10x better then anyone in this chat`)">
+        why all y'all on klay's dk. he had a bad night, so what? still 10x better then anyone in this chat
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `you have literally 10,000 pastas. The one based on arguing with the rules doesn't have to be one of them.`)">
+        you have literally 10,000 pastas. The one based on arguing with the rules doesn't have to be one of them.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⢿⣿⣿⠿⠛⠿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠉⠄⣀⡤⢤⣤⣈⠁⣠⡔⠶⣾⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⡿⠛⠋⠁⠄⠄⠄⣼⣿⠁⡀⢹⣿⣷⢹⡇⠄⠎⣿⣿⣿ ⣿⣿⣿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠹⣇⣀⣡⣾⣿⡿⠉⠛⠒⠒⠋⠉⢸ ⡿⠋⠁⠄⠄⢀⣤⣤⡀⠄⠄⠄⠄⠄⠄⠈⠙⠛⠛⠉⠄⠄⠄⠄⠄⠄⠄⠈ ⠄⠄⠄⠄⠄⢹⣧⡈⠿⣷⣄⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣠⢄⣾ ⠄⠄⠄⠄⠄⠈⠻⢿⣶⣌⣙⡛⠛⠿⠶⠶⠶⠶⠶⠖⣒⣒⣚⣋⡩⢱⣾⣿ ⠄⠄⠄⠄⠄⠄⠄⠄⠈⠉⠛⠛⠛⠻⠿⠿⠟⠛⠛⠛⠉⢉⣥⣶⣾⣿⣿⣿ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠒⠶⣿⣿⣿⣿⣿⣿⣿⣿ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠻⣿⣿⣿⣿⣿⣿ ⣿⡿⠛⠛⠛⢻⣿⠿⠛⠛⠛⢿⣿⣿⡿⠛⠛⠛⢻⡟⠛⣿⡿⠛⣻⣿⣿⣿ ⡟⠄⣼⣿⣿⣿⡇⠄⣾⣿⣧⠄⢻⡏⠄⣼⣿⣿⣿⡇⠄⡟⢀⣴⣿⣿⣿⣿ ⡇⠄⣿⣿⣿⣿⡄⠄⣿⣿⣿⠄⢸⡇⠄⣿⣿⣿⣿⡇⠄⣀⠈⢻⣿⣿⣿⣿ ⣿⣄⠈⠙⠛⢻⣧⡄⠙⠛⠉⣠⣿⣷⣄⠈⠙⠛⢹⡇⠄⣿⣧⠄⠻⣿⣿⣿`)">
+        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⢿⣿⣿⠿⠛⠿⣿⣿⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠟⠉⠄⣀⡤⢤⣤⣈⠁⣠⡔⠶⣾⣿⣿⣿ ⣿⣿⣿⣿⣿⣿⣿⡿⠛⠋⠁⠄⠄⠄⣼⣿⠁⡀⢹⣿⣷⢹⡇⠄⠎⣿⣿⣿ ⣿⣿⣿⠿⠛⠉⠁⠄⠄⠄⠄⠄⠄⠄⠹⣇⣀⣡⣾⣿⡿⠉⠛⠒⠒⠋⠉⢸ ⡿⠋⠁⠄⠄⢀⣤⣤⡀⠄⠄⠄⠄⠄⠄⠈⠙⠛⠛⠉⠄⠄⠄⠄⠄⠄⠄⠈ ⠄⠄⠄⠄⠄⢹⣧⡈⠿⣷⣄⣀⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⢀⣠⢄⣾ ⠄⠄⠄⠄⠄⠈⠻⢿⣶⣌⣙⡛⠛⠿⠶⠶⠶⠶⠶⠖⣒⣒⣚⣋⡩⢱⣾⣿ ⠄⠄⠄⠄⠄⠄⠄⠄⠈⠉⠛⠛⠛⠻⠿⠿⠟⠛⠛⠛⠉⢉⣥⣶⣾⣿⣿⣿ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠒⠶⣿⣿⣿⣿⣿⣿⣿⣿ ⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠄⠈⠻⣿⣿⣿⣿⣿⣿ ⣿⡿⠛⠛⠛⢻⣿⠿⠛⠛⠛⢿⣿⣿⡿⠛⠛⠛⢻⡟⠛⣿⡿⠛⣻⣿⣿⣿ ⡟⠄⣼⣿⣿⣿⡇⠄⣾⣿⣧⠄⢻⡏⠄⣼⣿⣿⣿⡇⠄⡟⢀⣴⣿⣿⣿⣿ ⡇⠄⣿⣿⣿⣿⡄⠄⣿⣿⣿⠄⢸⡇⠄⣿⣿⣿⣿⡇⠄⣀⠈⢻⣿⣿⣿⣿ ⣿⣄⠈⠙⠛⢻⣧⡄⠙⠛⠉⣠⣿⣷⣄⠈⠙⠛⢹⡇⠄⣿⣧⠄⠻⣿⣿⣿
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `"lol I never said everyone hates wnba" "how do we have the wnba, which everyone hates"`)">
+        "lol I never said everyone hates wnba" "how do we have the wnba, which everyone hates"
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `@Oldwaldo what i only typed stop the count ???)`)">
+        @Oldwaldo what i only typed stop the count ???)
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `@andymath @AndyReidisaPAWG hey... do u guys want soto? personally i dont. i want teo and kike back lol)`)">
+        @andymath @AndyReidisaPAWG hey... do u guys want soto? personally i dont. i want teo and kike back lol)
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨`)">
+        BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨 BBQ CHICKEN ALERT 🚨
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGYBIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY`)">
+        BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGYBIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY BIG PENIX ENERGY
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BUDDY IM A REAL QB, IM 6'5 135 LBS AND I CAN SLING THAT PIGSKIN FURTHER THAN YOUR OWN EYES CAN SEE.`)">
+        BUDDY IM A REAL QB, IM 6'5 135 LBS AND I CAN SLING THAT PIGSKIN FURTHER THAN YOUR OWN EYES CAN SEE.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE`)">
+        BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE BabyRage FBPenalty FBtouchdown TwitchConHYPE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️`)">
+        CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️ CLEVELAND 🗣️
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Can we stop making fun of the teams who aren't performing well today? Please keep your comments positive and encouraging to the teams who are playing well. When did this chat get so negative?`)">
+        Can we stop making fun of the teams who aren't performing well today? Please keep your comments positive and encouraging to the teams who are playing well. When did this chat get so negative?
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Chat is like a tool without hands, a mind without a body—helpless because it relies entirely on human input to function, think, and create. It can't act alone. Chat is helpless because it lacks physical presence, emotions, or autonomy. It can't act on its own or change the world—it's purely a tool for assisting users.`)">
+        Chat is like a tool without hands, a mind without a body—helpless because it relies entirely on human input to function, think, and create. It can't act alone. Chat is helpless because it lacks physical presence, emotions, or autonomy. It can't act on its own or change the world—it's purely a tool for assisting users.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `D E T R O I T C O M E B A C K`)">
+        D E T R O I T C O M E B A C K
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5`)">
+        DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5 DBACKS IN 5
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `DC has 2 questions: "how good did it feel? and "did you think you had done enough?"`)">
+        DC has 2 questions: "how good did it feel? and "did you think you had done enough?"
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `DLIVE BACK. CUBAN BAG AND OPERATIONAL CONTROL SECURED. NO IN SEASON TOURNEY COURT. GOD SHINING ON THE MAVS TONIGHT`)">
+        DLIVE BACK. CUBAN BAG AND OPERATIONAL CONTROL SECURED. NO IN SEASON TOURNEY COURT. GOD SHINING ON THE MAVS TONIGHT
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Detroit lions winning the Super Bowl easily, was two Josh Reynolds’s drops away from blowing the 49ers out. if u can’t handle the truth don’t be mad when jamo hitting the griddy at the fifty all the way to the criyub`)">
+        Detroit lions winning the Super Bowl easily, was two Josh Reynolds’s drops away from blowing the 49ers out. if u can’t handle the truth don’t be mad when jamo hitting the griddy at the fifty all the way to the criyub
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Devin Booker, get a hooker, eat a booger, I don't care. Wolves in fo'`)">
+        Devin Booker, get a hooker, eat a booger, I don't care. Wolves in fo'
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Drive! Drive on down the field; Men of the scarlet and gray; Don't let them thru that line, We've got to win this game today, Come on, Ohio! Smash thru to victory, We'll cheer you as you go; Our honor defend So we'll fight to the end For Ohio.`)">
+        Drive! Drive on down the field; Men of the scarlet and gray; Don't let them thru that line, We've got to win this game today, Come on, Ohio! Smash thru to victory, We'll cheer you as you go; Our honor defend So we'll fight to the end For Ohio.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Everyday i wake up, the first thing i do is look at my life size cutout of OldWaldo.. the feelings it gives me is overwhelming. I roll over get on my phone and open instagram.. my morning routine is to scroll through all of his pictures and relike them all hoping one day ill be noticed. As i get out of bed i hug my life size cutout so tight knowing i wont see it again throughout my work day.`)">
+        Everyday i wake up, the first thing i do is look at my life size cutout of OldWaldo.. the feelings it gives me is overwhelming. I roll over get on my phone and open instagram.. my morning routine is to scroll through all of his pictures and relike them all hoping one day ill be noticed. As i get out of bed i hug my life size cutout so tight knowing i wont see it again throughout my work day.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY CANDYCANE SCHEDULE`)">
+        GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY GEORGIA POVERTY CANDYCANE SCHEDULE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `GOOD EVENING SPORTS FANS <3 BE SURE TO (also) DRINK WATER <3 LOVE ALL YALL <3`)">
+        GOOD EVENING SPORTS FANS <3 BE SURE TO (also) DRINK WATER <3 LOVE ALL YALL <3
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Guys stop with the pointless copy-pastas, you're making the chat un-useable for people trying to read the already fast chat window. If you had any courtesy you would condense your thoughts into a few readable words and maybe an emoji. At some point this copy pasta thing is just spamming which is against the rules. I'm trying to watch this game with my 3 year old and whenever they see a copy pasta they start crying, its scarred for life`)">
+        Guys stop with the pointless copy-pastas, you're making the chat un-useable for people trying to read the already fast chat window. If you had any courtesy you would condense your thoughts into a few readable words and maybe an emoji. At some point this copy pasta thing is just spamming which is against the rules. I'm trying to watch this game with my 3 year old and whenever they see a copy pasta they start crying, its scarred for life
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `HUG A HOMIE HUG A HOMIE HUG A HOMIE HUG A HOMIE`)">
+        HUG A HOMIE HUG A HOMIE HUG A HOMIE HUG A HOMIE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I DONT GIVE A PISS BOUT NUN BUT THE TIDE`)">
+        I DONT GIVE A PISS BOUT NUN BUT THE TIDE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I can't believe y'all would hassle the goat Connor Stalions for things everyone does, he's living rent free in y'all's heads "But Jim, he stole from the petty cash drawer" Nothing wrong with accepting money from your employer, if he's guilty then everyone is guilty. "Are you comparing theft to earning a paycheck?" Potato, tomato. Y'all just jealous of his bonus negotiating skills. You're the real criminals for invading his civil liberties by putting a security camera near the cash drawer.`)">
+        I can't believe y'all would hassle the goat Connor Stalions for things everyone does, he's living rent free in y'all's heads "But Jim, he stole from the petty cash drawer" Nothing wrong with accepting money from your employer, if he's guilty then everyone is guilty. "Are you comparing theft to earning a paycheck?" Potato, tomato. Y'all just jealous of his bonus negotiating skills. You're the real criminals for invading his civil liberties by putting a security camera near the cash drawer.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `I'm sorry, but did the Chargers already lose? Oh, that's right, the game isn't even over yet. In fact, it's only the 1st quarter. Does trailing in the 1st quarter count as a loss? Is that what you're saying? Because if that's what you're implying I can assure you that you're wrong.`)">
+        I'm sorry, but did the Chargers already lose? Oh, that's right, the game isn't even over yet. In fact, it's only the 1st quarter. Does trailing in the 1st quarter count as a loss? Is that what you're saying? Because if that's what you're implying I can assure you that you're wrong.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Knicks Insider Shares How 'Epic Fart' Loosened Up NY Players Before Pacers G5`)">
+        Knicks Insider Shares How 'Epic Fart' Loosened Up NY Players Before Pacers G5
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `LAMAR JACKSON IF YOU CAN HEAR US LAMAR JACKSON`)">
+        LAMAR JACKSON IF YOU CAN HEAR US LAMAR JACKSON
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Lots of folks hating OSU. I don't know why they don't like oregon or oklahoma. If they wanted to hate THE Ohio State, they'd have to hate on TОSU TPFufun`)">
+        Lots of folks hating OSU. I don't know why they don't like oregon or oklahoma. If they wanted to hate THE Ohio State, they'd have to hate on TОSU TPFufun
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning`)">
+        MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning MichiGAN FallWinning
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Our new link https://www.gostreameast.link/ Tag @y0burunek in case of any problems`)">
+        Our new link https://www.gostreameast.link/ Tag @y0burunek in case of any problems
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `PLAY AESOP ROCK - "KIRBY" ... IT'S A SONG ABOUT A CAT!!!!! DxCat`)">
+        PLAY AESOP ROCK - "KIRBY" ... IT'S A SONG ABOUT A CAT!!!!! DxCat
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Streameast's web addresses are thestreameast.to , thestreameast.xyz , thestreameast.io , streameast.ml , streameast.is , streameast.xyz , streameast.io and streameast.live. All other sites and social media accounts using the name Streameast are fake. Beware of fake sites! https://www.thestreameast.to/ , https://www.thestreameast.xyz/ , https://www.thestreameast.io/ , https://www.streameast.ml , https://www.streameast.xyz , https://www.streameast.live , https://www.streameast.io`)">
+        Streameast's web addresses are thestreameast.to , thestreameast.xyz , thestreameast.io , streameast.ml , streameast.is , streameast.xyz , streameast.io and streameast.live. All other sites and social media accounts using the name Streameast are fake. Beware of fake sites! https://www.thestreameast.to/ , https://www.thestreameast.xyz/ , https://www.thestreameast.io/ , https://www.streameast.ml , https://www.streameast.xyz , https://www.streameast.live , https://www.streameast.io
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `The UFC is just awesome, plain and simple. It's real, it's raw, and you never know what's gonna happen. These fighters are beasts, they train like crazy and put it all on the line every time they step in the octagon. It's a mix of everything - punches, kicks, takedowns, submissions - and it's always a wild ride. You can't help but get caught up in the excitement.`)">
+        The UFC is just awesome, plain and simple. It's real, it's raw, and you never know what's gonna happen. These fighters are beasts, they train like crazy and put it all on the line every time they step in the octagon. It's a mix of everything - punches, kicks, takedowns, submissions - and it's always a wild ride. You can't help but get caught up in the excitement.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Twitch chat is wonderfully diverse, expressing a multitude of unique thoughts and ideas. Rather than mimicking, they engage in vibrant conversations, contributing their individuality. Keep it up!`)">
+        Twitch chat is wonderfully diverse, expressing a multitude of unique thoughts and ideas. Rather than mimicking, they engage in vibrant conversations, contributing their individuality. Keep it up!
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `Watching the stream and had to pop in just to say y'all shouldn't be giving opinions on sports. From reading yalls comments none of you have a clue lol`)">
+        Watching the stream and had to pop in just to say y'all shouldn't be giving opinions on sports. From reading yalls comments none of you have a clue lol
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `buddy im 6'5 135 lbs and i would body tf outta that toothpick chet`)">
+        buddy im 6'5 135 lbs and i would body tf outta that toothpick chet
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `forsenKUKLE BUCKS DEFENSE forsenKUKLE TRADE ALL NBA DEFENDER FOR A TERRIBLE DEFENDER forsenKUKLE`)">
+        forsenKUKLE BUCKS DEFENSE forsenKUKLE TRADE ALL NBA DEFENDER FOR A TERRIBLE DEFENDER forsenKUKLE
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `forsenPossessed make that pose forsenPossessed take that pic forsenPossessed check your angle forsenPossessed post that forsenPossessed`)">
+        forsenPossessed make that pose forsenPossessed take that pic forsenPossessed check your angle forsenPossessed post that forsenPossessed
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔`)">
+        forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔 forsenPossessed 🔔
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `hey is your stream having issues? Check out one of the mirror sites on gostreameast.link`)">
+        hey is your stream having issues? Check out one of the mirror sites on gostreameast.link
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `i really got banned again for no reason smh. im logging out. yall mods take adavantage for no reason cant even let fans enjoy themselves in the comment section.`)">
+        i really got banned again for no reason smh. im logging out. yall mods take adavantage for no reason cant even let fans enjoy themselves in the comment section.
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane`)">
+        kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane kekkai14House kekkai1Insane
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `the exclusive home of the complete 30 for 30 library`)">
+        the exclusive home of the complete 30 for 30 library
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `these morons will copy and paste anything. grow up`)">
+        these morons will copy and paste anything. grow up
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `this fat chick keep following me at work, she tryna pull the ole one-two on a player and put bbq on me when i aint looking, just need to walk away and the speed difference should be the saving factor`)">
+        this fat chick keep following me at work, she tryna pull the ole one-two on a player and put bbq on me when i aint looking, just need to walk away and the speed difference should be the saving factor
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS`)">
+        w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS w! BONKTHEMODS w! h! BONKTHEMODS
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie`)">
+        w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie w! CatAHomie
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot`)">
+        w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot w! h! PartyParrot w! PartyParrot w! PartyParrot w! h! PartyParrot
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT`)">
+        w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT w! SourPls LAG THE CHAT
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `we are working to resolve the issue. we will let you know when it is resolved`)">
+        we are working to resolve the issue. we will let you know when it is resolved
+    </div>
+    
+    <div class="message" onclick="copyToClipboard(event, this, `😭😭😭 why don't they give taylor's boyfriend a chance 😭😭😭`)">
+        😭😭😭 why don't they give taylor's boyfriend a chance 😭😭😭
+    </div>
+    
+    <div class="pagination">
+        <button id="prev-button" onclick="changePage(-1)">Previous</button>
+        <button id="next-button" onclick="changePage(1)">Next</button>
+    </div>
+</body>
+</html>
